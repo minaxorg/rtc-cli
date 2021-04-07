@@ -5,8 +5,7 @@
     "bin": "./lib/src/index.js",
     "scripts": {
         "build": "tsc",
-        "dev": "tsc -w",
-        "cp": "ts-node ./src/index.ts"
+        "dev": "tsc -w"
     },
     "keywords": [],
     "author": "",
@@ -23,7 +22,6 @@
         "eslint-plugin-import": "^2.22.1",
         "eslint-plugin-node": "^11.1.0",
         "eslint-plugin-promise": "^4.3.1",
-        "ts-node": "^9.1.1",
         "typescript": "^4.2.3"
     }
 }
