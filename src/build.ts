@@ -4,9 +4,9 @@ import chalk from 'chalk'
 
 const log = console.log
 
-const build = (folder: string) => {
+const build = (folder: string, options: { analyzer?: boolean }) => {
   process.env.NODE_ENV = 'production'
-  const config = createConfig(folder)
+  const config = createConfig(folder, options)
   log(chalk.blue('开始构建...'))
   log(chalk.blue('index.html 中需提供 react、react-dom、react-router-dom 的 cdn 文件'))
   webpack(config).run((error) => {
