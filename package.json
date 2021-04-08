@@ -1,8 +1,10 @@
 {
   "name": "rtc-cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
-  "bin": "./lib/src/index.js",
+  "bin": {
+    "rtc-cli": "lib/src/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc -w"
