@@ -1,6 +1,6 @@
 {
   "name": "rtc-cli",
-  "version": "0.0.1-beta",
+  "version": "0.0.2",
   "description": "",
   "bin": "./lib/src/index.js",
   "scripts": {
@@ -11,17 +11,41 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "commander": "^7.2.0"
+    "@babel/core": "^7.13.14",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.14.37",
+    "@types/react-dev-utils": "^9.0.5",
+    "babel-loader": "^8.2.2",
+    "chalk": "^4.1.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "commander": "^7.2.0",
+    "css-loader": "^5.2.0",
+    "express": "^4.17.1",
+    "html-webpack-plugin": "^5.3.1",
+    "postcss": "^8.2.9",
+    "postcss-loader": "^5.2.0",
+    "postcss-preset-env": "^6.7.0",
+    "react-dev-utils": "^11.0.4",
+    "react-refresh": "^0.9.0",
+    "sass": "^1.32.8",
+    "sass-loader": "^11.0.1",
+    "sass-resources-loader": "^2.1.1",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.1.0",
+    "typescript": "^4.2.3",
+    "webpack": "^5.31.0",
+    "webpack-dev-middleware": "^4.1.0",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-merge": "^5.7.3"
   },
   "devDependencies": {
-    "@types/node": "^14.14.37",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
     "eslint": "^7.23.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
-    "typescript": "^4.2.3"
+    "eslint-plugin-promise": "^4.3.1"
   }
 }
