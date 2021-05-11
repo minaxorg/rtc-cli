@@ -3,6 +3,7 @@ import express from 'express'
 import path from 'path'
 import openBrowser from 'react-dev-utils/openBrowser'
 import webpack from 'webpack'
+import { merge } from 'webpack-merge'
 import createConfig from './webpack/webpack.config.dev'
 
 const port = 8800
@@ -30,9 +31,12 @@ const startServer = (port: number) => {
 
 const log = console.log
 
-const dev = (folder: string) => {
+const dev = (folder: string, options: { config?: string }) => {
   process.env.NODE_ENV = 'development'
-  const config = createConfig(folder)
+  let config = createConfig(folder)
+  if (options.config) {
+    config = merge(config, require(path.resolve(folder, options.config)))
+  }
   const compiler = webpack({ ...config, stats: { preset: 'minimal' } })
 
   app.use(require('webpack-dev-middleware')(compiler))
