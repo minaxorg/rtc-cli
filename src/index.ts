@@ -13,7 +13,7 @@ const log = console.log
 const checkTplExists = () => {
   const isExists = fs.existsSync(path.join(process.cwd(), './index.ejs'))
   if (!isExists) {
-    log(chalk.red('index.ejs 文件不存在，可执行 rtc-cli tpl 生成'))
+    log(chalk.red('index.ejs 文件不存在，可执行 npx rtc-cli tpl 生成'))
     process.exit(1)
   }
 }
