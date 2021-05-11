@@ -13,7 +13,6 @@ const build = (folder: string, options: { analyzer?: boolean, config?: string })
     config = merge(config, require(path.resolve(folder, options.config)))
   }
   log(chalk.blue('开始构建...'))
-  log(chalk.blue('index.html 中需提供 react、react-dom、react-router-dom 的 cdn 文件'))
   webpack(config).run((error) => {
     if (error) {
       log(chalk.red('❌构建失败！'))
