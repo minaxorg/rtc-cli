@@ -6,8 +6,9 @@
     "rtc-cli": "lib/src/index.js"
   },
   "scripts": {
-    "build": "tsc",
-    "dev": "tsc -w"
+    "build": "tsc & npm run copy-tpl",
+    "dev": "tsc -w & npm run copy-tpl",
+    "copy-tpl": "cp ./src/tpl.ejs ./lib/src/tpl.ejs"
   },
   "keywords": [],
   "author": "",

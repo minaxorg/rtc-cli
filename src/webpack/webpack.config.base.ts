@@ -47,7 +47,7 @@ const createConfig = (folder: string) => {
           use: [
             isDevelopment && {
               loader: require.resolve('babel-loader'),
-              options: { plugins: ['react-refresh/babel'] }
+              options: { plugins: [require.resolve('react-refresh/babel')] }
             },
             {
               loader: require.resolve('ts-loader'),
@@ -57,12 +57,12 @@ const createConfig = (folder: string) => {
         },
         {
           test: /\.css$/,
-          use: ['style-loader', 'css-loader', postcssLoaderConfig]
+          use: [require.resolve('style-loader'), require.resolve('css-loader'), postcssLoaderConfig]
         },
         {
           test: /\.scss$/,
           use: [
-            'style-loader',
+            require.resolve('style-loader'),
             {
               loader: require.resolve('css-loader'),
               options: {
@@ -72,7 +72,7 @@ const createConfig = (folder: string) => {
               }
             },
             postcssLoaderConfig,
-            'sass-loader',
+            require.resolve('sass-loader'),
             {
               loader: require.resolve('sass-resources-loader'),
               options: {
@@ -89,7 +89,7 @@ const createConfig = (folder: string) => {
       new HtmlWebpackPlugin({
         // package.json 中新增 appName 字段
         title: require(path.resolve(folder, './package.json')).appName || 'Untitled',
-        template: path.resolve(folder, './index.html'),
+        template: path.resolve(folder, './index.ejs'),
         env: process.env.NODE_ENV
       })
     ]

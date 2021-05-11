@@ -11,7 +11,7 @@ const createConfig = (folder: string) => {
       filename: '[name].js'
     },
     devtool: 'source-map',
-    entry: ['webpack-hot-middleware/client', baseConfig.entry],
+    entry: [require.resolve('webpack-hot-middleware/client'), baseConfig.entry],
     plugins: [new ReactRefreshPlugin(), new webpack.HotModuleReplacementPlugin()]
   }
   const config = merge<Configuration>(baseConfig as Configuration, devConfig as Configuration)
