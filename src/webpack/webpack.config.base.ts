@@ -1,6 +1,7 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import path from 'path'
 import webpack from 'webpack'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 const createConfig = (folder: string) => {
   const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -57,12 +58,16 @@ const createConfig = (folder: string) => {
         },
         {
           test: /\.css$/,
-          use: [require.resolve('style-loader'), require.resolve('css-loader'), postcssLoaderConfig]
+          use: [
+            isDevelopment ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
+            require.resolve('css-loader'),
+            postcssLoaderConfig
+          ].filter(Boolean)
         },
         {
           test: /\.scss$/,
           use: [
-            require.resolve('style-loader'),
+            isDevelopment ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
             {
               loader: require.resolve('css-loader'),
               options: {
@@ -76,6 +81,7 @@ const createConfig = (folder: string) => {
             {
               loader: require.resolve('sass-resources-loader'),
               options: {
+                // FIXME: 这里没有考虑不存在这个文件的场景
                 // 将 var.scss 引入到每个 scss 文件，方便每个文件直接使用变量
                 resources: [path.resolve(folder, './src/styles/var.scss')]
               }
@@ -85,6 +91,7 @@ const createConfig = (folder: string) => {
       ]
     },
     plugins: [
+      !isDevelopment && new MiniCssExtractPlugin({ filename: '[name]-[chunkhash].css' }),
       new webpack.ProgressPlugin(),
       new HtmlWebpackPlugin({
         // package.json 中新增 appName 字段
@@ -92,7 +99,7 @@ const createConfig = (folder: string) => {
         template: path.resolve(folder, './index.ejs'),
         env: process.env.NODE_ENV
       })
-    ]
+    ].filter(Boolean)
   }
 }
 

@@ -3,6 +3,7 @@ import { Configuration } from 'webpack'
 import { merge } from 'webpack-merge'
 import createBaseConfig from './webpack.config.base'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 
 const createConfig = (folder: string, options: { analyzer?: boolean }) => {
   const baseConfig = createBaseConfig(folder)
@@ -25,7 +26,12 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
     output: {
       filename: '[name]-[chunkhash].js'
     },
-    plugins
+    plugins,
+    optimization: {
+      minimizer: [
+        new CssMinimizerPlugin()
+      ]
+    }
   }
   const config = merge<Configuration>(baseConfig as Configuration, prodConfig as Configuration)
   return config
