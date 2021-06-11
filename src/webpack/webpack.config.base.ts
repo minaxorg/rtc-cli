@@ -87,6 +87,22 @@ const createConfig = (folder: string) => {
               }
             }
           ]
+        },
+        {
+          test: /\.less$/,
+          use: [
+            require.resolve('style-loader'),
+            {
+              loader: require.resolve('css-loader'),
+              options: {
+                modules: {
+                  localIdentName: '[local]-[hash:base64:8]'
+                }
+              }
+            },
+            postcssLoaderConfig,
+            require.resolve('less-loader')
+          ]
         }
       ]
     },
