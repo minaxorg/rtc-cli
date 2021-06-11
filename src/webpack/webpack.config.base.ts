@@ -101,7 +101,14 @@ const createConfig = (folder: string) => {
               }
             },
             postcssLoaderConfig,
-            require.resolve('less-loader')
+            {
+              loader: require.resolve('less-loader'),
+              options: {
+                lessOptions: {
+                  javascriptEnabled: true
+                }
+              }
+            }
           ]
         }
       ]
