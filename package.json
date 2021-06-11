@@ -1,6 +1,6 @@
 {
   "name": "rtc-cli",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "",
   "bin": {
     "rtc-cli": "lib/src/index.js"
