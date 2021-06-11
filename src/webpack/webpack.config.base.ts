@@ -25,6 +25,17 @@ const createConfig = (folder: string) => {
     }
   }
 
+  const cssLoaderConfig = {
+    loader: require.resolve('css-loader'),
+    options: {
+      modules: {
+        // node_modules 目录下的样式文件 auto 设置为 false
+        auto: (resourcePath: string) => !resourcePath.includes('/node_modules/'),
+        localIdentName: '[local]-[hash:base64:8]'
+      }
+    }
+  }
+
   return {
     entry: path.resolve(folder, './src/index'),
     output: {
@@ -68,14 +79,7 @@ const createConfig = (folder: string) => {
           test: /\.scss$/,
           use: [
             isDevelopment ? require.resolve('style-loader') : MiniCssExtractPlugin.loader,
-            {
-              loader: require.resolve('css-loader'),
-              options: {
-                modules: {
-                  localIdentName: '[local]-[hash:base64:8]'
-                }
-              }
-            },
+            cssLoaderConfig,
             postcssLoaderConfig,
             require.resolve('sass-loader'),
             {
@@ -92,14 +96,7 @@ const createConfig = (folder: string) => {
           test: /\.less$/,
           use: [
             require.resolve('style-loader'),
-            {
-              loader: require.resolve('css-loader'),
-              options: {
-                modules: {
-                  localIdentName: '[local]-[hash:base64:8]'
-                }
-              }
-            },
+            cssLoaderConfig,
             postcssLoaderConfig,
             {
               loader: require.resolve('less-loader'),
