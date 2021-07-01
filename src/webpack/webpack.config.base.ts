@@ -50,7 +50,7 @@ const createConfig = (folder: string) => {
     module: {
       rules: [
         {
-          test: /\.(bmp|png|jpg|gif|ttf|svg|woff|woff2)$/,
+          test: /\.(bmp|png|jpg|gif|ttf|otf|svg|woff|woff2)$/,
           type: 'asset'
         },
         {
