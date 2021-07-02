@@ -18,14 +18,15 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
 
   const prodConfig = {
     mode: 'production',
-    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-      'react-router-dom': 'ReactRouterDOM'
-    },
     output: {
+      libraryTarget: 'system',
       filename: '[name]-[chunkhash].js'
     },
+    externals: [
+      'react',
+      'react-dom',
+      'react-router-dom'
+    ],
     plugins,
     optimization: {
       minimizer: [
