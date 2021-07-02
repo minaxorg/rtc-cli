@@ -87,7 +87,8 @@ const createConfig = (folder: string) => {
               options: {
                 // FIXME: 这里没有考虑不存在这个文件的场景
                 // 将 var.scss 引入到每个 scss 文件，方便每个文件直接使用变量
-                resources: [path.resolve(folder, './src/styles/var.scss')]
+                resources: [path.resolve(folder, './src/styles/var.scss')],
+                hoistUseStatements: true
               }
             }
           ]
