@@ -18,11 +18,6 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
 
   const prodConfig = {
     mode: 'production',
-    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-      'react-router-dom': 'ReactRouterDOM'
-    },
     output: {
       filename: '[name]-[chunkhash].js'
     },
