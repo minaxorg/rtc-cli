@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import program, { Command } from 'commander'
+import { Command } from 'commander'
 import fs from 'fs'
 import path from 'path'
 import p from '../package.json'
@@ -8,6 +8,7 @@ import build from './build'
 import dev from './dev'
 import chalk from 'chalk'
 
+const program = new Command()
 const log = console.log
 
 const checkTplExists = () => {

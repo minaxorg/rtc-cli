@@ -28,7 +28,7 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
       ]
     }
   }
-  const config = merge<Configuration>(baseConfig as Configuration, prodConfig as Configuration)
+  const config = merge<Configuration>(baseConfig as Configuration, prodConfig as unknown as Configuration)
   return config
 }
 
