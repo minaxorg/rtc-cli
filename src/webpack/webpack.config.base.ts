@@ -115,7 +115,7 @@ const createConfig = (folder: string) => {
       ]
     },
     plugins: [
-      !isDevelopment && new MiniCssExtractPlugin({ filename: '/css/[name]-[chunkhash].css' }),
+      !isDevelopment && new MiniCssExtractPlugin({ filename: 'css/[name]-[chunkhash].css' }),
       new webpack.ProgressPlugin(),
       new HtmlWebpackPlugin({
         // package.json 中新增 appName 字段
