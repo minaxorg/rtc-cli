@@ -8,7 +8,7 @@ const createConfig = (folder: string) => {
   const devConfig = {
     mode: 'development',
     output: {
-      filename: '[name].js'
+      filename: 'js/[name].js'
     },
     devtool: 'source-map',
     entry: [require.resolve('webpack-hot-middleware/client'), baseConfig.entry],

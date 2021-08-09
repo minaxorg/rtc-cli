@@ -39,7 +39,8 @@ const createConfig = (folder: string) => {
   return {
     entry: path.resolve(folder, './src/index'),
     output: {
-      path: path.resolve(folder, './dist')
+      path: path.resolve(folder, './dist'),
+      publicPath: '/'
     },
     resolve: {
       extensions: ['.js', '.ts', '.tsx', '.json'],
