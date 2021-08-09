@@ -19,7 +19,7 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
   const prodConfig = {
     mode: 'production',
     output: {
-      filename: '[name]-[chunkhash].js'
+      filename: 'js/[name]-[chunkhash].js'
     },
     plugins,
     optimization: {

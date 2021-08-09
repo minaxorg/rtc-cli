@@ -51,7 +51,10 @@ const createConfig = (folder: string) => {
       rules: [
         {
           test: /\.(bmp|png|jpg|gif|ttf|otf|svg|woff|woff2)$/,
-          type: 'asset'
+          type: 'asset',
+          generator: {
+            filename: 'assets/[hash][ext][query]'
+          }
         },
         {
           test: /\.tsx?$/,
@@ -112,7 +115,7 @@ const createConfig = (folder: string) => {
       ]
     },
     plugins: [
-      !isDevelopment && new MiniCssExtractPlugin({ filename: '[name]-[chunkhash].css' }),
+      !isDevelopment && new MiniCssExtractPlugin({ filename: '/css/[name]-[chunkhash].css' }),
       new webpack.ProgressPlugin(),
       new HtmlWebpackPlugin({
         // package.json 中新增 appName 字段
