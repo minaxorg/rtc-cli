@@ -14,7 +14,7 @@ const createConfig = (folder: string) => {
     entry: [require.resolve('webpack-hot-middleware/client'), baseConfig.entry],
     plugins: [new ReactRefreshPlugin(), new webpack.HotModuleReplacementPlugin()]
   }
-  const config = merge<Configuration>(baseConfig as Configuration, devConfig as Configuration)
+  const config = merge<Configuration>(baseConfig as unknown as Configuration, devConfig as unknown as Configuration)
   return config
 }
 

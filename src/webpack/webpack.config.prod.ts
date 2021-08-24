@@ -8,13 +8,7 @@ import createBaseConfig from './webpack.config.base'
 const createConfig = (folder: string, options: { analyzer?: boolean }) => {
   const baseConfig = createBaseConfig(folder)
 
-  const plugins: Configuration['plugins'] = [new CleanWebpackPlugin()]
-
-  if (options.analyzer) {
-    plugins.push(
-      new BundleAnalyzerPlugin()
-    )
-  }
+  const plugins = [new CleanWebpackPlugin(), options.analyzer && new BundleAnalyzerPlugin()].filter(Boolean)
 
   const prodConfig = {
     mode: 'production',
@@ -28,7 +22,7 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
       ]
     }
   }
-  const config = merge<Configuration>(baseConfig as Configuration, prodConfig as unknown as Configuration)
+  const config = merge<Configuration>(baseConfig as unknown as Configuration, prodConfig as unknown as Configuration)
   return config
 }
 
