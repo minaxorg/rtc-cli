@@ -122,7 +122,8 @@ const createConfig = (folder: string) => {
         // package.json 中新增 appName 字段
         title: require(path.resolve(folder, './package.json')).appName || 'Untitled',
         template: path.resolve(folder, './index.ejs'),
-        env: process.env.NODE_ENV
+        env: process.env.NODE_ENV,
+        scriptLoading: 'blocking'
       })
     ].filter(Boolean)
   }
