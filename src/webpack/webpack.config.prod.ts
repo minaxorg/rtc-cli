@@ -12,6 +12,7 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
 
   const prodConfig = {
     mode: 'production',
+    target: ['web', 'es5'],
     output: {
       filename: 'js/[name]-[chunkhash].js'
     },
