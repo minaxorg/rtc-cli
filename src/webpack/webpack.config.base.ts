@@ -51,7 +51,7 @@ const createConfig = (folder: string) => {
     module: {
       rules: [
         {
-          test: /\.(bmp|png|jpg|gif|ttf|otf|svg|woff|woff2)$/,
+          test: /\.(bmp|png|jpg|gif|ttf|otf|svg|woff|woff2|docx|doc|xls|xlsx|ppt|pptx)$/,
           type: 'asset',
           generator: {
             filename: 'assets/[hash][ext][query]'
