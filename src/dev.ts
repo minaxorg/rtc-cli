@@ -1,10 +1,15 @@
 import chalk from 'chalk'
 import express from 'express'
 import path from 'path'
-import openBrowser from 'react-dev-utils/openBrowser'
 import webpack from 'webpack'
 import { merge } from 'webpack-merge'
 import createConfig from './webpack/webpack.config.dev'
+import fs from 'fs'
+import http from 'http'
+import https from 'https'
+
+const key = fs.readFileSync(path.resolve(__dirname, './ssl.key'))
+const cert = fs.readFileSync(path.resolve(__dirname, './ssl.crt'))
 
 const port = 8800
 
@@ -12,34 +17,46 @@ const app = express()
 
 const ip = '127.0.0.1'
 
-const startServer = (port: number) => {
-  app
+const startServer = (port: number, ssl: boolean) => {
+  let server
+  if (ssl) {
+    server = https.createServer({ key, cert }, app)
+  } else {
+    server = http.createServer(app)
+  }
+  server
     .listen(port, () => {
-      if (openBrowser(`http://${ip}:${port}`)) {
-        log(chalk.green(`\n开发服务启动成功。http://${ip}:${port}`))
-      }
+      log(chalk.green(`\n开发服务启动成功。${ssl ? '注：你启用了 https 开发服务。' : ''}`))
+      log(chalk.green(`\nhttp${ssl ? 's' : ''}://${ip}:${port}`))
     })
     .on('error', (e: any) => {
       if (e.code === 'EADDRINUSE') {
-        log(chalk.red(`\n${port} 端口被占用，尝试 ${port + 1} 端口`))
-        startServer(++port)
+        log(chalk.red(`\n${port} 端口被占用，请使用 -p 指定其他端口`))
+        process.exit(0)
       } else {
-        throw new Error('Unknown Error')
+        process.exit(1)
       }
     })
 }
 
 const log = console.log
 
-const dev = (folder: string, options: { config?: string }) => {
+const dev = (folder: string, options: { port?: number; config?: string, ssl?: boolean }) => {
   process.env.NODE_ENV = 'development'
-  let config = createConfig(folder)
+
+  let config = createConfig(folder, { port: options.port || port, ssl: options.ssl })
   if (options.config) {
     config = merge(config, require(path.resolve(folder, options.config)))
   }
   const compiler = webpack({ ...config, stats: { preset: 'minimal' } })
 
-  app.use(require('webpack-dev-middleware')(compiler))
+  app.use(require('webpack-dev-middleware')(compiler, {
+    headers: () => {
+      return {
+        'Access-Control-Allow-Origin': '*'
+      }
+    }
+  }))
 
   app.use(require('webpack-hot-middleware')(compiler))
 
@@ -64,7 +81,7 @@ const dev = (folder: string, options: { config?: string }) => {
     })
   })
   log(chalk.blue('\n启动开发服务...'))
-  startServer(port)
+  startServer(options.port ? options.port : port, !!options.ssl)
 }
 
 export default dev

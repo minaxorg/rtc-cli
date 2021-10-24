@@ -23,6 +23,8 @@ program.version(p.version.toString())
 
 program.command('dev').description('开发')
   .option('-c, --config <path>', '指定额外的 webpack 配置文件')
+  .option('-s, --ssl', '开发服务使用 https')
+  .option('-p, --port <port>', '指定开发服务端口号，默认为 8800')
   .action((env, options: Command) => {
     checkTplExists()
     dev(process.cwd(), options.opts())
