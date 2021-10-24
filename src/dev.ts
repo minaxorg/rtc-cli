@@ -2,7 +2,6 @@ import chalk from 'chalk'
 import express from 'express'
 import path from 'path'
 import webpack from 'webpack'
-import { merge } from 'webpack-merge'
 import createConfig from './webpack/webpack.config.dev'
 import fs from 'fs'
 import http from 'http'
@@ -44,10 +43,8 @@ const log = console.log
 const dev = (folder: string, options: { port?: number; config?: string, ssl?: boolean }) => {
   process.env.NODE_ENV = 'development'
 
-  let config = createConfig(folder, { port: options.port || port, ssl: options.ssl })
-  if (options.config) {
-    config = merge(config, require(path.resolve(folder, options.config)))
-  }
+  const config = createConfig(folder, { config: options.config, port: options.port || port, ssl: options.ssl })
+
   const compiler = webpack({ ...config, stats: { preset: 'minimal' } })
 
   app.use(require('webpack-dev-middleware')(compiler, {
