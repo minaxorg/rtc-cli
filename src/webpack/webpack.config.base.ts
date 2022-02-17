@@ -1,7 +1,8 @@
+import fs from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import path from 'path'
 import webpack from 'webpack'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 const createConfig = (folder: string) => {
   const isDevelopment = process.env.NODE_ENV !== 'production'
@@ -86,16 +87,15 @@ const createConfig = (folder: string) => {
             cssLoaderConfig,
             postcssLoaderConfig,
             require.resolve('sass-loader'),
-            {
+            fs.existsSync(path.resolve(folder, './src/styles/var.scss')) && {
               loader: require.resolve('sass-resources-loader'),
               options: {
-                // FIXME: 这里没有考虑不存在这个文件的场景
                 // 将 var.scss 引入到每个 scss 文件，方便每个文件直接使用变量
                 resources: [path.resolve(folder, './src/styles/var.scss')],
                 hoistUseStatements: true
               }
             }
-          ]
+          ].filter(Boolean)
         },
         {
           test: /\.less$/,
