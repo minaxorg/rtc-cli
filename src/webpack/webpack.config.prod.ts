@@ -1,7 +1,7 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
-import { Configuration } from 'webpack'
 import TerserPlugin from 'terser-webpack-plugin'
+import { Configuration } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import { merge } from 'webpack-merge'
 import createBaseConfig from './webpack.config.base'
@@ -13,7 +13,7 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
 
   const prodConfig = {
     mode: 'production',
-    target: ['web', 'es5'],
+    target: ['web', 'es6'],
     output: {
       filename: 'js/[name]-[chunkhash].js'
     },
@@ -26,8 +26,7 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
       ]
     }
   }
-  const config = merge<Configuration>(baseConfig as unknown as Configuration, prodConfig as unknown as Configuration)
-  return config
+  return merge<Configuration>(baseConfig as unknown as Configuration, prodConfig as unknown as Configuration)
 }
 
 export default createConfig

@@ -1,6 +1,7 @@
 import fs from 'fs'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import ReactRefreshTypeScript from 'react-refresh-typescript'
 import path from 'path'
 import webpack from 'webpack'
 
@@ -16,7 +17,7 @@ const createConfig = (folder: string) => {
             require.resolve('postcss-preset-env'),
             {
               autoprefixer: {
-                overrideBrowserslist: ['Chrome > 38', 'ie >= 8']
+                overrideBrowserslist: ['Chrome > 69']
               }
             }
           ]
@@ -62,13 +63,36 @@ const createConfig = (folder: string) => {
           test: /\.tsx?$/,
           include: path.join(folder, 'src'),
           use: [
-            isDevelopment && {
+            !isDevelopment && {
               loader: require.resolve('babel-loader'),
-              options: { plugins: [require.resolve('react-refresh/babel')] }
+              options: {
+                presets: [
+                  [
+                    require.resolve('@babel/preset-env'), {
+                      useBuiltIns: 'usage',
+                      corejs: '3.30',
+                      targets: {
+                        chrome: '70'
+                      }
+                    }
+                  ]
+                ]
+              }
             },
             {
               loader: require.resolve('ts-loader'),
-              options: { transpileOnly: true }
+              options: {
+                getCustomTransformers: () => ({
+                  before: [isDevelopment && ReactRefreshTypeScript()].filter(Boolean)
+                }),
+                configFile: path.resolve(folder, './tsconfig.json'),
+                transpileOnly: true,
+                compilerOptions: isDevelopment
+                  ? {
+                      jsx: 'react-jsxdev'
+                    }
+                  : {}
+              }
             }
           ].filter(Boolean)
         },

@@ -1,7 +1,7 @@
-import webpack, { Configuration } from 'webpack'
-import { merge } from 'webpack-merge'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import path from 'path'
+import webpack, { Configuration } from 'webpack'
+import { merge } from 'webpack-merge'
 import createBaseConfig from './webpack.config.base'
 
 const createConfig = (folder: string, options: { config?: string; port: number; ssl?: boolean }) => {
@@ -27,8 +27,7 @@ const createConfig = (folder: string, options: { config?: string; port: number; 
     entry: [`webpack-hot-middleware/client?path=${hmrPath}`, baseConfig.entry],
     plugins: [new ReactRefreshPlugin(), new webpack.HotModuleReplacementPlugin()]
   }
-  const config = merge<Configuration>(baseConfig as unknown as Configuration, devConfig as unknown as Configuration, extraConfig)
-  return config
+  return merge<Configuration>(baseConfig as unknown as Configuration, devConfig as unknown as Configuration, extraConfig)
 }
 
 export default createConfig
