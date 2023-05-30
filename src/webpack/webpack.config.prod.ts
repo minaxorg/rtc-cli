@@ -1,5 +1,6 @@
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
+import * as os from 'os'
 import TerserPlugin from 'terser-webpack-plugin'
 import { Configuration } from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
@@ -21,7 +22,12 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
     optimization: {
       minimize: true,
       minimizer: [
-        new TerserPlugin(),
+        new TerserPlugin({
+          minify: TerserPlugin.esbuildMinify,
+          exclude: /\/node_modules/,
+          parallel: os.cpus().length,
+          terserOptions: {}
+        }),
         new CssMinimizerPlugin()
       ]
     }

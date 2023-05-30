@@ -17,7 +17,10 @@ const createConfig = (folder: string) => {
             require.resolve('postcss-preset-env'),
             {
               autoprefixer: {
-                overrideBrowserslist: ['Chrome > 69']
+                overrideBrowserslist: [
+                  '> 0.3%',
+                  'Chrome >= 70'
+                ]
               }
             }
           ]
