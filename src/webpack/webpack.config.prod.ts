@@ -26,7 +26,10 @@ const createConfig = (folder: string, options: { analyzer?: boolean }) => {
           minify: TerserPlugin.esbuildMinify,
           exclude: /\/node_modules/,
           parallel: os.cpus().length,
-          terserOptions: {}
+          terserOptions: {
+            // @ts-ignore
+            target: 'chrome70'
+          }
         }),
         new CssMinimizerPlugin()
       ]
