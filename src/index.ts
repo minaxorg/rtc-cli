@@ -32,6 +32,7 @@ program.command('dev').description('开发')
 
 program.command('build').description('构建')
   .option('-c, --config <path d="">', '指定额外的 webpack 配置文件')
+  .option('-en, --entry-name <name>', '指定构建产物的入口名称，默认为 main')
   .option('-a, --analyzer', '打开构建产物分析页面').action((env, options: Command) => {
     checkTplExists()
     build(process.cwd(), options.opts())

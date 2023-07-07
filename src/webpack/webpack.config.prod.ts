@@ -7,8 +7,8 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 import { merge } from 'webpack-merge'
 import createBaseConfig from './webpack.config.base'
 
-const createConfig = (folder: string, options: { analyzer?: boolean }) => {
-  const baseConfig = createBaseConfig(folder)
+const createConfig = (folder: string, options: { analyzer?: boolean; entryName?: string }) => {
+  const baseConfig = createBaseConfig(folder, options.entryName)
 
   const plugins = [new CleanWebpackPlugin(), options.analyzer && new BundleAnalyzerPlugin()].filter(Boolean)
 

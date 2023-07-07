@@ -5,7 +5,7 @@ import ReactRefreshTypeScript from 'react-refresh-typescript'
 import path from 'path'
 import webpack from 'webpack'
 
-const createConfig = (folder: string) => {
+const createConfig = (folder: string, entryName?: string) => {
   const isDevelopment = process.env.NODE_ENV !== 'production'
 
   const postcssLoaderConfig = {
@@ -42,7 +42,9 @@ const createConfig = (folder: string) => {
   }
 
   return {
-    entry: path.resolve(folder, './src/index'),
+    entry: {
+      [entryName || 'main']: path.resolve(folder, './src/index.tsx')
+    },
     output: {
       path: path.resolve(folder, './dist'),
       publicPath: '/'
