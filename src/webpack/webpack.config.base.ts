@@ -42,9 +42,11 @@ const createConfig = (folder: string, entryName?: string) => {
   }
 
   return {
-    entry: {
-      [entryName || 'main']: path.resolve(folder, './src/index.tsx')
-    },
+    entry: entryName
+      ? {
+          [entryName]: path.resolve(folder, './src/index.tsx')
+        }
+      : path.resolve(folder, './src/index.tsx'),
     output: {
       path: path.resolve(folder, './dist'),
       publicPath: '/'
